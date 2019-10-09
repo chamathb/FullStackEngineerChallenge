@@ -1,25 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Container from '@material-ui/core/Container';
+import UserMgt from './pages/UserMgt';
+import ReviewMgt from './pages/ReviewMgt';
+import Home from './pages/Home';
+import BottomNav from './component/BottomNav';
+import AddReview from './pages/CreateReview';
+
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+const routes = [{
+  path: "/home",
+  exact: true,
+  main: () => <Home/>
+}, {
+  path: "/manage/users",
+  main: () => <UserMgt/>
+}, {
+  path: "/manage/feedback",
+  main: () => <ReviewMgt/>
+}, {
+  path: "/add/review",
+  main: () => <AddReview />
+}];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Container maxWidth="sm">
+        <div className="App">
+          <div>
+
+          </div>
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={route.main}
+            />
+          ))}
+
+        </div>
+        <BottomNav />
+      </Container>
+    </Router>
   );
 }
 
